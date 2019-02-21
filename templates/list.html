@@ -1,0 +1,61 @@
+<html>
+	<head>
+	</head>
+
+	<body>
+		<h1>Todo List</h1>
+		<ul id="mylist">
+		</ul>
+
+		New Item: <input type="text" name="newItem" />
+		<button onclick="fun()">Add New Item</button>
+	</body>
+
+	<script>
+		var data= {{data|safe}};
+		var list =document.getElementById("mylist");
+
+		function populate()
+		{
+			for(var i=0; i<data.length; i++)
+			{
+				fun(data[i]['name'],data[i]['completed'], i);
+			}
+		}
+		
+		function fun(name, completion, num)
+		{
+			var tempstr = num;
+
+			var node = document.createElement("li");
+  			var textnode = document.createTextNode(name);
+  			node.appendChild(textnode);
+  			node.setAttribute("class", tempstr);
+			if(completion==true)
+  			{
+  				node.style.textDecoration="line-through";
+  			}
+
+
+  			var btn = document.createElement("button");
+  			var textnode2 = document.createTextNode("Toggle");
+
+  			btn.appendChild(textnode2);
+  			node.setAttribute("class", tempstr);
+  			/*btn.setAttribute("onclick", );*/
+  			
+
+
+  			node.appendChild(btn);
+
+			document.getElementById("mylist").appendChild(node);
+
+			
+
+		}
+
+		populate();
+		
+		
+	</script>
+</html>
