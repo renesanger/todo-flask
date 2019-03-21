@@ -1,61 +1,52 @@
+<!DOCTYPE html>
 <html>
 	<head>
+		<title>To Do List Web App</title>
+
+
 	</head>
-
 	<body>
-		<h1>Todo List</h1>
-		<ul id="mylist">
-		</ul>
 
-		New Item: <input type="text" name="newItem" />
-		<button onclick="fun()">Add New Item</button>
+		<h1 >TO DO LIST</h1>
+
+		<div class = "todo"
+			<ul>	
+				{% for todo in todos %}
+					<li>
+					{% if todo[2] == 0 %}
+						{{todo[1]}}
+						<a href = "/delete/{{todo[0]}}"><button type="button" >Delete</button></a>
+						<a href = "/complete/{{todo[0]}}"><button type="button" >Done</button></a>
+						
+					{% else %}
+						
+						<strike> {{todo[1]}}</strike>
+						<a href = "/delete/{{todo[0]}}"><button type="button" >Delete</button></a>
+						<a href = "/uncomplete/{{todo[0]}}"><button type="button" >Undo</button></a>
+					{% endif %}
+			
+					</li>
+				{% endfor %}
+			</ul>
+		</div><br>
+
+	<div>
+		<form action = "/add " method = "post">
+			Task to add:
+			<input type= "text" name = "new_task">
+			<input type="submit" value="Submit">	
+		</form>
+	</div>
+
+
+	<br><br><br>
+	<a href="/logout">LOG OUT</a>
+		
+				 
+	</form>
+		
+				
 	</body>
 
-	<script>
-		var data= {{data|safe}};
-		var list =document.getElementById("mylist");
 
-		function populate()
-		{
-			for(var i=0; i<data.length; i++)
-			{
-				fun(data[i]['name'],data[i]['completed'], i);
-			}
-		}
-		
-		function fun(name, completion, num)
-		{
-			var tempstr = num;
-
-			var node = document.createElement("li");
-  			var textnode = document.createTextNode(name);
-  			node.appendChild(textnode);
-  			node.setAttribute("class", tempstr);
-			if(completion==true)
-  			{
-  				node.style.textDecoration="line-through";
-  			}
-
-
-  			var btn = document.createElement("button");
-  			var textnode2 = document.createTextNode("Toggle");
-
-  			btn.appendChild(textnode2);
-  			node.setAttribute("class", tempstr);
-  			/*btn.setAttribute("onclick", );*/
-  			
-
-
-  			node.appendChild(btn);
-
-			document.getElementById("mylist").appendChild(node);
-
-			
-
-		}
-
-		populate();
-		
-		
-	</script>
 </html>
